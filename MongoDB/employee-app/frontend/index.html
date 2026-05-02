@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Employee Management System</title>
+</head>
+<body>
+
+<h1>Employee Management System</h1>
+<h3 id="formTitle">Add Employee</h3>
+
+<form id="form">
+  <input type="text" id="name" placeholder="Name" required><br><br>
+  <input type="text" id="dept" placeholder="Department"><br><br>
+  <input type="text" id="desg" placeholder="Designation"><br><br>
+  <input type="number" id="salary" placeholder="Salary"><br><br>
+  <input type="date" id="date"><br><br>
+  <button type="submit">Save Employee</button>
+</form>
+
+<h2>Employees</h2>
+<button onclick="loadEmployees()">Load Employees</button>
+
+<ul id="list"></ul>
+
+<script>
+
+let editId = null;
+
+// ADD / UPDATE
+document.getElementById("form").addEventListener("submit", async (e) => {
+  e.preventDefault();
+
+  const data = {
+    name: document.getElementById("name").value,
+    department: document.getElementById("dept").value,
+    designation: document.getElementById("desg").value,
+    salary: document.getElementById("salary").value,
+    joiningDate: document.getElementById("date").value
+  };
+
+  if (editId) {
+    // UPDATE
+    await fetch("/api/employees/" + editId, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data)
+    });
+    alert("Employee Updated");
+    editId = null;
+    document.getElementById("formTitle").innerText = "Add Employee";
+  } else {
+    // ADD
+    await fetch("/api/employees", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data)
+    });
+    alert("Employee Added");
+  }
+
+  document.getElementById("form").reset();
+  loadEmployees();
+});
+
+// LOAD
+async function loadEmployees() {
+  const res = await fetch("/api/employees");
+  const data = await res.json();
+
+  const list = document.getElementById("list");
+  list.innerHTML = "";
+
+  data.forEach(emp => {
+    const li = document.createElement("li");
+
+    const formattedDate = emp.joiningDate
+      ? new Date(emp.joiningDate).toLocaleDateString()
+      : "";
+
+    li.innerHTML = `
+      ${emp.name} | ${emp.department} | ${emp.designation} | ${emp.salary} | ${formattedDate}
+      <button onclick="editEmp('${emp._id}', '${emp.name}', '${emp.department}', '${emp.designation}', '${emp.salary}', '${emp.joiningDate}')">Edit</button>
+      <button onclick="deleteEmp('${emp._id}')">Delete</button>
+    `;
+
+    list.appendChild(li);
+  });
+}
+
+// DELETE
+async function deleteEmp(id) {
+  await fetch("/api/employees/" + id, { method: "DELETE" });
+  loadEmployees();
+}
+
+// EDIT
+function editEmp(id, n, d, des, s, dt) {
+  editId = id;
+
+  document.getElementById("name").value = n;
+  document.getElementById("dept").value = d;
+  document.getElementById("desg").value = des;
+  document.getElementById("salary").value = s;
+  document.getElementById("date").value = dt ? dt.split("T")[0] : "";
+
+  document.getElementById("formTitle").innerText = "Update Employee";
+}
+
+</script>
+
+</body>
+</html>

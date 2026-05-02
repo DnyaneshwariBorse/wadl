@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Student Marks App</title>
+    <style>
+        body { 
+            font-family: Arial, sans-serif; 
+            background-color: #f4f4f9; 
+            color: #333; 
+            max-width: 900px; 
+            margin: 0 auto; 
+            padding: 10px; 
+            font-size: 14px;
+        }
+        h1 { 
+            text-align: center; 
+            color: #2c3e50; 
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 5px;
+            font-size: 22px;
+            margin: 5px 0 15px 0;
+        }
+        .grid-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+        .card {
+            background: white;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        h2 { 
+            background-color: #e8eaed; 
+            padding: 5px 8px; 
+            border-left: 4px solid #3498db; 
+            font-size: 15px; 
+            margin: 0 0 10px 0; 
+        }
+        input { 
+            width: 100%; 
+            padding: 6px; 
+            margin: 0 0 8px 0; 
+            border: 1px solid #ccc; 
+            border-radius: 4px; 
+            box-sizing: border-box;
+            font-size: 13px;
+        }
+        button { 
+            background-color: #3498db; 
+            color: white; 
+            padding: 8px; 
+            border: none; 
+            border-radius: 4px; 
+            cursor: pointer; 
+            width: 100%;
+            font-weight: bold;
+            font-size: 13px;
+        }
+        button:hover { 
+            background-color: #2980b9; 
+        }
+        a { 
+            display: block;
+            background-color: #2ecc71;
+            color: white;
+            padding: 8px;
+            text-decoration: none;
+            border-radius: 4px;
+            text-align: center;
+            margin-bottom: 6px;
+            font-weight: bold;
+        }
+        a:hover { 
+            background-color: #27ae60; 
+        }
+    </style>
+</head>
+<body>
+    <h1>🎓 Student Marks Dashboard</h1>
+    
+    <div class="grid-container">
+        
+        <div class="card">
+            <h2>1. Setup & View</h2>
+            <a href="/insert" target="_blank">Insert Default Student Data</a>
+            <a href="/table" target="_blank" style="background-color:#9b59b6;">View All Students (Table)</a>
+            <a href="/students" target="_blank" style="background-color:#f39c12;">View All Students (JSON)</a>
+        </div>
+        
+        <div class="card">
+            <h2>2. Specific Queries</h2>
+            <a href="/dsbda" target="_blank" style="background-color:#8e44ad;">Students with DSBDA > 20</a>
+            <a href="/all25" target="_blank" style="background-color:#16a085;">> 25 Marks in All Subjects</a>
+            <a href="/less40" target="_blank" style="background-color:#e67e22;">< 40 Marks in Maths & Science</a>
+        </div>
+        
+        <div class="card">
+            <h2>3. Update Student Marks</h2>
+            <form id="update-form" onsubmit="event.preventDefault(); window.open('/update/' + document.getElementById('update-name').value, '_blank');">
+                <input type="text" id="update-name" placeholder="Student Name (e.g., ABC)" required>
+                <button type="submit">Add 10 Marks to DSBDA</button>
+            </form>
+        </div>
+
+        <div class="card">
+            <h2>4. Delete Student</h2>
+            <form id="delete-form" onsubmit="event.preventDefault(); window.open('/delete/' + document.getElementById('delete-name').value, '_blank');">
+                <input type="text" id="delete-name" placeholder="Student Name to Delete" required>
+                <button type="submit" style="background-color:#e74c3c;">Delete Student</button>
+            </form>
+        </div>
+
+    </div>
+</body>
+</html>

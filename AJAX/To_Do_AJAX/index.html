@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>AJAX To-Do List</title>
+</head>
+
+<body>
+    <div class="container">
+        <div>
+            <h1>Task Manager</h1>
+            <h3>Manage your daily goals using AJAX</h3>
+        </div>
+        <div class="btn-container">
+            <button class="btn" onclick="toggleForm()">+ New Task</button>
+        </div>
+
+        <div id="formContainer" style="display: none;">
+            <input type="text" id="taskTitle" placeholder="What needs to be done?">
+            <input type="text" id="taskDept" placeholder="Department (e.g., Work, Home)">
+            <br>
+            <button id="submitBtn">Add Task</button>
+        </div>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Sr No</th>
+                    <th>Task</th>
+                    <th>Department</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="tbody"></tbody>
+        </table>
+    </div>
+    <script src="main.js"></script>
+</body>
+
+</html>

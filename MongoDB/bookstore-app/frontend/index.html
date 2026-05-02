@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Online Bookstore</title>
+</head>
+<body>
+
+<h1>Online Bookstore</h1>
+<h3 id="formTitle">Add Book</h3>
+
+<form id="form">
+  <input type="text" id="title" placeholder="Title" required><br><br>
+  <input type="text" id="author" placeholder="Author"><br><br>
+  <input type="text" id="genre" placeholder="Genre"><br><br>
+  <input type="number" id="price" placeholder="Price"><br><br>
+  <button type="submit">Save Book</button>
+</form>
+
+<h2>Books</h2>
+<button onclick="loadBooks()">Load Books</button>
+
+<ul id="list"></ul>
+
+<script>
+
+let editId = null;
+
+// ADD / UPDATE
+document.getElementById("form").addEventListener("submit", async (e) => {
+  e.preventDefault();
+
+  const data = {
+    title: document.getElementById("title").value,
+    author: document.getElementById("author").value,
+    genre: document.getElementById("genre").value,
+    price: document.getElementById("price").value
+  };
+
+  if (editId) {
+    await fetch("/api/books/" + editId, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data)
+    });
+    alert("Book Updated");
+    editId = null;
+    document.getElementById("formTitle").innerText = "Add Book";
+  } else {
+    await fetch("/api/books", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data)
+    });
+    alert("Book Added");
+  }
+
+  document.getElementById("form").reset();
+  loadBooks();
+});
+
+// LOAD
+async function loadBooks() {
+  const res = await fetch("/api/books");
+  const data = await res.json();
+
+  const list = document.getElementById("list");
+  list.innerHTML = "";
+
+  data.forEach(book => {
+    const li = document.createElement("li");
+
+    li.innerHTML = `
+      ${book.title} | ${book.author} | ${book.genre} | ${book.price}
+      <button onclick="editBook('${book._id}', '${book.title}', '${book.author}', '${book.genre}', '${book.price}')">Edit</button>
+      <button onclick="deleteBook('${book._id}')">Delete</button>
+    `;
+
+    list.appendChild(li);
+  });
+}
+
+// DELETE
+async function deleteBook(id) {
+  await fetch("/api/books/" + id, { method: "DELETE" });
+  loadBooks();
+}
+
+// EDIT
+function editBook(id, t, a, g, p) {
+  editId = id;
+
+  document.getElementById("title").value = t;
+  document.getElementById("author").value = a;
+  document.getElementById("genre").value = g;
+  document.getElementById("price").value = p;
+
+  document.getElementById("formTitle").innerText = "Update Book";
+}
+
+</script>
+
+</body>
+</html>
