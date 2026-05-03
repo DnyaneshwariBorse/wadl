@@ -7,7 +7,12 @@ const app = express();
 const PORT = 3001;
 
 app.use(cors());
+app.use(express.static(path.join(__dirname, '../frontend')));
 app.use('/images', express.static(path.join(__dirname, 'images')));
+
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, '../frontend/index.html'));
+});
 
 app.get('/api/products', (req, res) => {
   const filePath = path.resolve(__dirname, 'products.json');
