@@ -166,7 +166,7 @@ app.get("/table", async (req, res) => {
     res.send(html);
 });
 app.listen(6000,()=>{
-     console.log("Server running on port 6000");
+     console.log("Server running on http://localhost:6000");
 
 });
 

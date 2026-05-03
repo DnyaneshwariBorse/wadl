@@ -138,5 +138,5 @@ app.get("/table", async (req, res) => {
 });
 //stat sewrver
 app.listen(5000, () => {
-  console.log("Server running on port 5000");
+  console.log("Server running on http://localhost:5000");
 });

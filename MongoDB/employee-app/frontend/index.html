@@ -2,8 +2,91 @@
 <html>
 <head>
   <title>Employee Management System</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f8fafc;
+      color: #334155;
+    }
+    .container {
+      max-width: 800px;
+      margin: 40px auto;
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+    }
+    h1, h2, h3 {
+      color: #1e293b;
+      margin-top: 0;
+    }
+    input {
+      width: calc(100% - 24px);
+      padding: 12px;
+      margin-bottom: 15px;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      font-size: 15px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    input:focus {
+      border-color: #0284c7;
+    }
+    button {
+      padding: 12px 24px;
+      background-color: #0284c7;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 15px;
+      font-weight: 600;
+      transition: background-color 0.2s;
+    }
+    button:hover {
+      background-color: #0369a1;
+    }
+    .btn-secondary {
+      background-color: #64748b;
+    }
+    .btn-secondary:hover {
+      background-color: #475569;
+    }
+    .btn-danger {
+      background-color: #ef4444;
+    }
+    .btn-danger:hover {
+      background-color: #dc2626;
+    }
+    ul#list {
+      list-style-type: none;
+      padding: 0;
+    }
+    ul#list li {
+      background: #f8fafc;
+      margin-bottom: 10px;
+      padding: 15px;
+      border-radius: 8px;
+      border: 1px solid #e2e8f0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .emp-details {
+      font-size: 16px;
+    }
+    .emp-actions button {
+      padding: 6px 14px;
+      margin-left: 5px;
+      font-size: 13px;
+    }
+  </style>
 </head>
 <body>
+<div class="container">
 
 <h1>Employee Management System</h1>
 <h3 id="formTitle">Add Employee</h3>
@@ -78,9 +161,11 @@ async function loadEmployees() {
       : "";
 
     li.innerHTML = `
-      ${emp.name} | ${emp.department} | ${emp.designation} | ${emp.salary} | ${formattedDate}
-      <button onclick="editEmp('${emp._id}', '${emp.name}', '${emp.department}', '${emp.designation}', '${emp.salary}', '${emp.joiningDate}')">Edit</button>
-      <button onclick="deleteEmp('${emp._id}')">Delete</button>
+      <span class="emp-details"><strong>${emp.name}</strong> - ${emp.designation} <span style="color:#64748b; font-size:14px;">(${emp.department} | $${emp.salary} | Joined ${formattedDate})</span></span>
+      <div class="emp-actions">
+        <button class="btn-secondary" onclick="editEmp('${emp._id}', '${emp.name}', '${emp.department}', '${emp.designation}', '${emp.salary}', '${emp.joiningDate}')">Edit</button>
+        <button class="btn-danger" onclick="deleteEmp('${emp._id}')">Delete</button>
+      </div>
     `;
 
     list.appendChild(li);
@@ -107,6 +192,6 @@ function editEmp(id, n, d, des, s, dt) {
 }
 
 </script>
-
+</div>
 </body>
 </html>

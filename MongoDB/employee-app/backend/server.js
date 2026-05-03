@@ -28,5 +28,5 @@ app.use("/api/employees", employeeRoutes);
 
 // start server
 app.listen(3000, () => {
-  console.log("Server running on port 3000");
+  console.log("Server running on http://localhost:3000");
 });

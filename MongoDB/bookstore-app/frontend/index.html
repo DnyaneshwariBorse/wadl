@@ -2,8 +2,91 @@
 <html>
 <head>
   <title>Online Bookstore</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f3f4f6;
+      color: #333;
+    }
+    .container {
+      max-width: 800px;
+      margin: 40px auto;
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    }
+    h1, h2, h3 {
+      color: #2c3e50;
+      margin-top: 0;
+    }
+    input {
+      width: calc(100% - 24px);
+      padding: 12px;
+      margin-bottom: 15px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      font-size: 15px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    input:focus {
+      border-color: #3498db;
+    }
+    button {
+      padding: 12px 24px;
+      background-color: #3498db;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 15px;
+      font-weight: 600;
+      transition: background-color 0.2s;
+    }
+    button:hover {
+      background-color: #2980b9;
+    }
+    .btn-secondary {
+      background-color: #7f8c8d;
+    }
+    .btn-secondary:hover {
+      background-color: #6c7a7d;
+    }
+    .btn-danger {
+      background-color: #e74c3c;
+    }
+    .btn-danger:hover {
+      background-color: #c0392b;
+    }
+    ul#list {
+      list-style-type: none;
+      padding: 0;
+    }
+    ul#list li {
+      background: #fafafa;
+      margin-bottom: 10px;
+      padding: 15px;
+      border-radius: 8px;
+      border: 1px solid #eee;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .book-details {
+      font-size: 16px;
+    }
+    .book-actions button {
+      padding: 6px 14px;
+      margin-left: 5px;
+      font-size: 13px;
+    }
+  </style>
 </head>
 <body>
+<div class="container">
 
 <h1>Online Bookstore</h1>
 <h3 id="formTitle">Add Book</h3>
@@ -70,9 +153,11 @@ async function loadBooks() {
     const li = document.createElement("li");
 
     li.innerHTML = `
-      ${book.title} | ${book.author} | ${book.genre} | ${book.price}
-      <button onclick="editBook('${book._id}', '${book.title}', '${book.author}', '${book.genre}', '${book.price}')">Edit</button>
-      <button onclick="deleteBook('${book._id}')">Delete</button>
+      <span class="book-details"><strong>${book.title}</strong> by ${book.author} <span style="color:#7f8c8d; font-size:14px;">(${book.genre} | $${book.price})</span></span>
+      <div class="book-actions">
+        <button class="btn-secondary" onclick="editBook('${book._id}', '${book.title}', '${book.author}', '${book.genre}', '${book.price}')">Edit</button>
+        <button class="btn-danger" onclick="deleteBook('${book._id}')">Delete</button>
+      </div>
     `;
 
     list.appendChild(li);
@@ -98,6 +183,6 @@ function editBook(id, t, a, g, p) {
 }
 
 </script>
-
+</div>
 </body>
 </html>
