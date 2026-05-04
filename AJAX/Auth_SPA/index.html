@@ -105,15 +105,17 @@
     e.preventDefault();
 
     const user = {
-      name: name.value.trim(),
-      email: email.value.trim(),
-      mobile: mobile.value.trim(),
-      dob: dob.value,
-      city: city.value.trim(),
-      address: address.value.trim(),
-      username: regUsername.value.trim(),
-      password: regPassword.value.trim(),
+      name: document.getElementById("name").value.trim(),
+      email: document.getElementById("email").value.trim(),
+      mobile: document.getElementById("mobile").value.trim(),
+      dob: document.getElementById("dob").value,
+      city: document.getElementById("city").value.trim(),
+      address: document.getElementById("address").value.trim(),
+      username: document.getElementById("regUsername").value.trim(),
+      password: document.getElementById("regPassword").value.trim(),
     };
+
+    const regMsg = document.getElementById("regMsg");
 
     if (!/^\d{10}$/.test(user.mobile)) {
       regMsg.textContent = "Enter a valid 10-digit mobile number.";
@@ -125,7 +127,7 @@
       if (response.success) {
         regMsg.textContent = "Registered successfully!";
         regMsg.className = "text-success mt-2";
-        registerForm.reset();
+        document.getElementById("registerForm").reset();
       } else {
         regMsg.textContent = response.message;
         regMsg.className = "text-warning mt-2";
@@ -137,8 +139,9 @@
   document.getElementById("loginForm").addEventListener("submit", function (e) {
     e.preventDefault();
 
-    const username = loginUsername.value.trim();
-    const password = loginPassword.value.trim();
+    const username = document.getElementById("loginUsername").value.trim();
+    const password = document.getElementById("loginPassword").value.trim();
+    const loginMsg = document.getElementById("loginMsg");
 
     ajaxLoginUser(username, password, function (response) {
       if (response.success) {

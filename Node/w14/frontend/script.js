@@ -28,4 +28,4 @@ function loadUsers() {
 }
 
 // Automatically load on start
-window.onload = loadUsers;
+// window.onload = loadUsers;

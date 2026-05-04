@@ -1,20 +1,20 @@
 [
-    {
-      "id": 1,
-      "name": "Wireless Headphones",
-      "price": 59.99,
-      "image": "http://localhost:3001/images/headphones.jpg"
-    },
-    {
-      "id": 2,
-      "name": "Bluetooth Speaker",
-      "price": 29.99,
-      "image": "http://localhost:3001/images/speaker.webp"
-    },
-    {
-      "id": 3,
-      "name": "Smart Watch",
-      "price": 99.99,
-      "image": "http://localhost:3001/images/watch.png"
-    }
-  ]
+  {
+    "id": 1,
+    "name": "Wireless Headphones",
+    "price": 59.99,
+    "image": "https://via.placeholder.com/80"
+  },
+  {
+    "id": 2,
+    "name": "Bluetooth Speaker",
+    "price": 29.99,
+    "image": "http://localhost:3001/images/speaker.webp"
+  },
+  {
+    "id": 3,
+    "name": "Smart Watch",
+    "price": 99.99,
+    "image": "http://localhost:3001/images/watch.png"
+  }
+]
